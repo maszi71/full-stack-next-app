@@ -2,8 +2,10 @@
 import { useState } from "react";
 import styles from "./links.module.css";
 import NavLink from "./navLink/navLink";
+import Image from "next/image";
+
 const Links = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const session = true;
   const isAdmin = true;
   const links = [
@@ -39,8 +41,15 @@ const Links = () => {
           <NavLink item={{ title: "Login", path: "login" }} />
         )}
       </div>
-      <button className={styles.menuButton} onClick={()=> setIsOpen((prev)=> !prev)}>Menu</button>
-      {isOpen && (
+      <Image
+        className={styles.menuButton}
+        src="/images/menu.png"
+        alt=""
+        width={30}
+        height={30}
+        onClick={() => setOpen((prev) => !prev)}
+      />
+      {open && (
         <div className={styles.mobileLikns}>
           {links.map((link) => (
             <NavLink key={link.title} item={link} />
