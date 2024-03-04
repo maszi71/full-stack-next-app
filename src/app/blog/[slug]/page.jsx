@@ -3,21 +3,26 @@ import styles from "./singlePost.module.css";
 import { Suspense } from "react";
 import { getPost } from "@/lib/data";
 import PostUser from "@/components/postUser/postUser";
+import {formatDate} from "@/utils/date"
 
-// const getData = async (slug) => {
-//   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`); // default => force-cache
+const getData = async (slug) => {
+  const res = await fetch(`${process.env.BASE_URL}/api/blog/${slug}`); // default => force-cache
 
-//   if (!res.ok) {
-//     throw new Error("Something went wrong");
-//   }
+  if (!res.ok) {
+    throw new Error("Something went wrong");
+  }
 
-//   return res.json();
-// };
+  return res.json();
+};
 
 export const generateMetadata = async ({ params }) => {
   const { slug } = params;
 
-  const post = await getPost(slug);
+  // Fetch Data without API
+  // const post = await getPost(slug);
+
+  // Fecth Data With API
+  const post = await getData(slug);
 
   return {
     title: post.title,
@@ -27,7 +32,13 @@ export const generateMetadata = async ({ params }) => {
 
 const singlePost = async ({ params }) => {
   const { slug } = params;
-  const post = await getPost(slug);
+
+  // Fetch Data without API
+  //const post= await getPost(slug);
+
+  // Fecth Data With API
+  const post = await getData(slug);
+
   return (
     <div className={styles.container}>
       <div className={styles.imgContainer}>
@@ -38,13 +49,13 @@ const singlePost = async ({ params }) => {
         <div className={styles.detail}>
           {post && (
             <Suspense fallback={<div>Loading...</div>}>
-              <PostUser userId={post.userId} />
+              <PostUser userId={post?.userId} />
             </Suspense>
           )}
           <div className={styles.detailText}>
             <span className={styles.detailTitle}>Published</span>
             <span className={styles.detailValue}>
-              {post.createdAt.toString().slice(4, 16)}
+              {formatDate(post?.createdAt)}
             </span>
           </div>
         </div>
