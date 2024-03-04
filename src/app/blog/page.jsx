@@ -1,6 +1,6 @@
 import PostCard from "../../components/postCard/PostCard";
 import styles from "./blog.module.css";
-import {getPosts} from "../../../lib/data"
+import {getPosts} from "../../lib/data"
 // const getData = async () => {
 //   const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
 //     next: { revalidate: 3600 },

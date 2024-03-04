@@ -1,7 +1,6 @@
 import styles from "./postUser.module.css";
 import Image from "next/image";
-import noAvatar from "../../../public/images/noavatar.png";
-import { getUser } from "../../../lib/data";
+import { getUser } from "@/lib/data";
 
 // FETCH DATA WITH AN API
 // const getData = async (userId) => {
@@ -21,7 +20,7 @@ const PostUser = async ({ userId }) => {
     <div className={styles.container}>
       <Image
         className={styles.avatar}
-        src={user.img ? user.img : noAvatar}
+        src={user.img ? user.img : "/images/noavatar.png"}
         alt="user image"
         width={50}
         height={50}
